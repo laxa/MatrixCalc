@@ -4,21 +4,21 @@ class Matrix
 {
   /* Matrix is stored in that array */
   private $matrix;
-  /* string who contains error */
-  private $error;
   private $columns;
   private $lines;
 
   /* Construct a Matrix */
   /* array must contains an array for each line of the matrix */
+  /* the values inside arrays are expected to be valid number with is_numeric() */
   /* A matrix should be something like this : */
   /* $matrix = array(array(0, 1, 2), array(3, 4, 5), array(6, 7, 8)); */
   public function __construct($array)
   {
-    if (sizeof($array) == 0)
-      return false;
+    if ($array === null) throw new Exception('Null array given');
+    if (sizeof($array) == 0) throw new Exception('Can\'t construct Matrix, array given is invalid');
     $this->columns = sizeof($array[0]);
     $this->lines = sizeof($array);
+    $this->checkArray($array);
     $this->matrix = $array;
     return $this;
   }
@@ -113,6 +113,18 @@ class Matrix
       throw new Exception('The matrixs have not the same size');
     if ($this->GetColumns() != $b->GetColumns())
       throw new Exception('The matrixs have not the same size');
+  }
+
+  private function checkArray($array)
+  {
+    for ($l = 0; $l < $this->lines; $l++)
+    {
+      for ($c = 0; $c < $this->columns; $c++)
+      {
+        if (!isset($array[$l][$c])) throw new Exception('Array given have unsetted values');
+        if (!is_numeric($array[$l][$c])) throw new Exception('Non numerical value detected inside array');
+      }
+    }
   }
 
   /* getters */
