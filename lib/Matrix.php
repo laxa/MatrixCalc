@@ -54,12 +54,37 @@ class Matrix
     return new Matrix($tmp);
   }
 
+  /* return an int that is the trace of the matrix */
+  public function Trace()
+  {
+    if ($this->columns != $this->lines) throw new Exception('Can\'t Trace a matrix which isn\'t squared');
+    $ret = 0;
+    for ($i = 0; $i < $this->lines; $i++)
+      $ret += $this->matrix[$i][$i];
+    return $ret;
+  }
+
+  /* return a new Matrix */
+  public function Transpose()
+  {
+    $ret = array();
+    for ($l = 0; $l < $this->lines; $l++)
+    {
+      for ($c = 0; $c < $this->columns; $c++)
+      {
+        if (!isset($this->matrix[$l][$c])) throw new Exception('Matrix failed to be transposed');
+        $ret[$c][$l] = $this->matrix[$l][$c];
+      }
+    }
+    return new Matrix($ret);
+  }
+
   public function PrintMatrix()
   {
     for ($l = 0; $l < $this->lines; $l++)
     {
       for ($c = 0; $c < $this->columns; $c++)
-        echo $this->matrix[$l][$c].' ';
+        printf("%3d ", $this->matrix[$l][$c]);
       echo "\n";
     }
   }
@@ -78,7 +103,7 @@ class Matrix
   private function checkMatrixMult(Matrix $b)
   {
     if ($b->GetLines() != $this->GetColumns())
-      throw new Exception('Can\'t multiply when lines and columns are differnet'."\n");
+      throw new Exception('Can\'t multiply when lines and columns are differnet');
   }
 
   /* Check if matrix have the same columns and size */
