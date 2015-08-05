@@ -1,0 +1,13 @@
+body {
+	background : url("../img/matrice_bg.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#bg_div {
+	background-color: #ffffff;
+	background-position: center center;
+	margin: 10%;
+	width: 80%;
+	height: 80%;
+}
