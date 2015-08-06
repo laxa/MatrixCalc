@@ -35,6 +35,14 @@ function checkValue() {
    return true;
 }
 
+function validate_size(myform) {
+   if (myform.tailleN.value == "") {
+      alert("The value of 'n' is not a number");
+      return false;
+   }
+   myform.action.value = "save_step1";
+   myform.submit();
+}
 function check_step1(myform) {
    var count;
    var op;
@@ -125,6 +133,27 @@ function check_step3(myform) {
          }
       });
    }
+
+   if (test > 0) {
+      return false;
+   }
+
+   myform.action.value = "save_step3";
+   $("#step3").hide();
+   $("#step4").show();
+   myform.submit();
+}
+
+function validate_size2(myform) {
+   var test = 0;
+   $('.matrixA').each(function(i, objA) {
+      if (objA.value == "" ){
+         alert("Remplisser toutes les valeurs de la matrice A s'il vous plais ...");
+         objA.focus();
+         test = 1;
+         return false;
+      }
+   });
 
    if (test > 0) {
       return false;

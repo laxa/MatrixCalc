@@ -274,7 +274,7 @@
                         <col width="10%"></col>
                         <col></col>
                         <tr>
-                           <td>Taille de la Matrice A</td>
+                           <td>L'ordre de la Matrice A</td>
                            <td><input type="number" min="1" name="tailleA" max="99" maxlength="3" size="3" /></td>
                         </tr>
                      <?php
