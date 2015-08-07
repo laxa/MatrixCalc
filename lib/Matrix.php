@@ -107,12 +107,12 @@ class Matrix
       }
       $g = $this->getG($l);
       if ($g === null) throw new Exception('Can\'t solve this equation');
-      $ret['G'.($l + 1)] = $g;
+      $ret['G'.($l + 1)] = $g->roundMatrix();
       $tmp = $g->Mult($this);
       $b = $g->Mult($b);
-      $ret['Y'.($l + 2)] = $b;
+      $ret['Y'.($l + 2)] = $b->roundMatrix();
       $this->matrix = $tmp->GetMatrix();
-      $ret['A'.($l + 2)] = $this;
+      $ret['A'.($l + 2)] = $this->roundMatrix();
     }
     /* We can solve the equations now */
     $sol = array();
@@ -139,11 +139,13 @@ class Matrix
 
   private function roundMatrix()
   {
+    $arr = array();
     for ($l = 0; $l < $this->lines; $l++)
     {
       for ($c = 0; $c < $this->columns; $c++)
-        $this->matrix[$l][$c] = round($this->matrix[$l][$c], $this->floats);
+        $arr[$l][$c] = round($this->matrix[$l][$c], $this->floats);
     }
+    return new Matrix($arr);
   }
 
   private function getG($line)
