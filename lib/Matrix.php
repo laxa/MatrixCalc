@@ -2,6 +2,8 @@
 
 class Matrix
 {
+  /* floats to print */
+  private $floats = 2;
   /* Matrix is stored in that array */
   private $matrix;
   private $columns;
@@ -84,9 +86,110 @@ class Matrix
     for ($l = 0; $l < $this->lines; $l++)
     {
       for ($c = 0; $c < $this->columns; $c++)
-        printf("%3d ", $this->matrix[$l][$c]);
+        printf("%6.2f ", $this->matrix[$l][$c]);
       echo "\n";
     }
+  }
+
+  public function GaussMethod(Matrix $b)
+  {
+    /* checking size of Matrix to be sure we don't need to check out of bounds later */
+    if ($this->columns != $this->lines) throw new Exception('Matrix isn\'t square, can\'t do gauss method');
+    if ($b->GetLines() != $this->lines) throw new Exception('Needs to have same number of lines');
+    /* ret will contain a list of Matrix corresponding to what's asked in the subject */
+    $ret = array();
+    for ($l = 0; $l < $this->lines - 1; $l++)
+    {
+      if ($this->matrix[$l][$l] === 0)
+      {
+        $swap = $this->findNotNull($l);
+        if ($swap) $this->swapLine($b, $l, $swap);
+      }
+      $g = $this->getG($l);
+      if ($g === null) throw new Exception('Can\'t solve this equation');
+      $ret['G'.($l + 1)] = $g;
+      $tmp = $g->Mult($this);
+      $b = $g->Mult($b);
+      $ret['Y'.($l + 2)] = $b;
+      $this->matrix = $tmp->GetMatrix();
+      $ret['A'.($l + 2)] = $this;
+    }
+    /* We can solve the equations now */
+    $sol = array();
+    $b = $b->GetMatrix();
+    for ($l = $this->lines - 1; $l >= 0; $l--)
+    {
+      $tmp = $b[$l][0];
+      if ($this->matrix[$l][$l] === 0) throw new Exception('No valid solution found');
+      /* we evaluate each line with the x that we already know */
+      foreach ($sol as $key => $value)
+        $tmp -= $this->matrix[$l][$key] * $value;
+      $sol[$l] = $tmp / $this->matrix[$l][$l];
+    }
+    /* Need to revert $sol array */
+    /* Now we add $sol to the return */
+    foreach ($sol as $key => $val)
+      $sol[$key] = round($val, $this->floats);
+    $sol = array_values($sol);
+    $sol = array_reverse($sol);
+    $ret['solutions'] = $sol;
+    /* ret contains all the information about the gauss like 'G1', 'A2', 'Y2' and also the 'solutions' */
+    return $ret;
+  }
+
+  private function roundMatrix()
+  {
+    for ($l = 0; $l < $this->lines; $l++)
+    {
+      for ($c = 0; $c < $this->columns; $c++)
+        $this->matrix[$l][$c] = round($this->matrix[$l][$c], $this->floats);
+    }
+  }
+
+  private function getG($line)
+  {
+    /* We need to display a standart Matrix if that happens */
+    if ($this->matrix[$line][$line] === 0) return null;
+    $new = $this->getDefaultG();
+    $array = $new->GetMatrix();
+    for ($l = $line + 1; $l < $this->lines; $l++)
+      $array[$l][$line] = -1 * ($this->matrix[$l][$line] / $this->matrix[$line][$line]);
+    return new Matrix($array);
+  }
+
+  /* generate an anti-diagonal matrix of the size of the Matrix object */
+  private function getDefaultG()
+  {
+    $new = array();
+    for ($l = 0; $l < $this->lines; $l++)
+    {
+      $new[$l] = array();
+      for ($c = 0; $c < $this->columns; $c++)
+        $new[$l][$c] = 0;
+    }
+    for ($i = 0; $i < $this->lines; $i++)
+      $new[$i][$i] = 1;
+    return new Matrix($new);
+  }
+
+  private function findNotNull($index)
+  {
+    for ($i = $index + 1; $i < $this->lines; $i++)
+      if ($this->matrix[$i][$index] !== 0) return $i;
+    return null;
+  }
+
+  /* $line is the index of the line we swap with the index of the other swaped line */
+  private function swapLine(Matrix &$y, $line, $swapLine)
+  {
+    $tmp = $this->matrix[$line];
+    $this->matrix[$line] = $this->matrix[$swapLine];
+    $this->matrix[$swapLine] = $tmp;
+    $matrix = $y->GetMatrix();
+    $tmp = $matrix[$line];
+    $matrix[$line] = $matrix[$swapLine];
+    $matrix[$swapLine] = $tmp;
+    $y = new Matrix($matrix);
   }
 
   /* $arr1 and $arr2 are suppose to be the same */

@@ -59,6 +59,24 @@ try
   echo "B:\n";
   $b->PrintMatrix();
   echo "Trace of B: ".$b->Trace()."\n";
+
+  /* Trying gauss resolution */
+  $a = new Matrix(array(array(1, 2, 1), array(2, -1, 2), array(3, 1, -1)));
+  echo "Printing the matrix we will use for gauss resolution:\n";
+  $a->PrintMatrix();
+  echo "Now gauss...\n";
+  $a->GaussMethod(new Matrix(array(array(9), array(3), array(8))));
+  $a = new Matrix(array(array(0, 2, 1), array(2, -1, 2), array(3, 1, -1)));
+  echo "Printing the matrix we will use for gauss resolution:\n";
+  $a->PrintMatrix();
+  echo "Now gauss...\n";
+  $a->GaussMethod(new Matrix(array(array(9), array(3), array(8))));
+  $a = new Matrix(array(array(1, 2), array(2, 1)));
+  $a->GaussMethod(new Matrix(array(array(7), array(5))));
+  $a = new Matrix(array(array(2, 3, -1, 1), array(4, 7, 2, 4), array(2, 6, 3, 2), array(1, 1, 0, 1)));
+  $a->GaussMethod(new Matrix(array(array(-2), array(5), array(4), array(1))));
+  $a = new Matrix(array(array(1, 2), array(2, 1)));
+  $ret = $a->GaussMethod(new Matrix(array(array(5), array(11))));
 }
 catch (Exception $e)
 {
