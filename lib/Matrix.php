@@ -208,7 +208,7 @@ class Matrix
   private function checkMatrixMult(Matrix $b)
   {
     if ($b->GetLines() != $this->GetColumns())
-      throw new Exception('Can\'t multiply when lines and columns are differnet');
+      throw new Exception('Can\'t multiply when lines and columns are different');
   }
 
   /* Check if matrix have the same columns and size */

@@ -10,4 +10,35 @@ body {
 	margin: 10%;
 	width: 80%;
 	height: 80%;
+	border-radius: 5px;
+	box-shadow: 20;
+}
+
+.error {
+	color : #FF6600;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 14px;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+legend {
+	font-family: "Trebuchet MS";
+	color: #229988;
+	font-size : 15px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+fieldset {
+	border: solid 1px gray;
+	border-radius: 3px;
+}
+
+hr {
+	width: 90%;
 }

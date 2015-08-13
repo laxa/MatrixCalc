@@ -8,7 +8,8 @@ $result = $_SESSION["result"];
 ?>
 
 A + B =
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+   <semantics>
    <mrow>
       <mi></mi>
       <mo></mo>
@@ -25,8 +26,10 @@ A + B =
          </mtable>
       </mfenced>
    </mrow>
+   </semantics>
 </math>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+   <semantics>
    <mrow>
       <mi>+</mi>
       <mo></mo>
@@ -45,8 +48,11 @@ A + B =
          
       </mfenced>
    </mrow>
+   </semantics>
 </math>
-<math xmlns="http://www.w3.org/1998/Math/MathML">
+
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+   <semantics>
    <mrow>
       <mi>=</mi>
       <mo></mo>
@@ -65,4 +71,5 @@ A + B =
          
       </mfenced>
    </mrow>
+   </semantics>
 </math>

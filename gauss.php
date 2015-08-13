@@ -53,11 +53,15 @@
             }
             $j = 0;
          }
-            ## Class code to calculate the gauss value of the matrices
 
-            # matrice G = Array(G1, G2, G3); 
-            # A = Array(A2, A3, A4); 
-            # Y = Array(Y2, Y3, Y4);
+         try {
+            $a = new Matrix($matrixA);
+            $y = new Matrix($matrixY);      
+            $resultGauss = $a->GaussMethod($y);
+
+         } catch (Exception $e) {
+            $error = $e->getMessage();
+         }
 
       }
    }
@@ -66,23 +70,22 @@
    <body>
 
       <div id="bg_div">
+         <h1>Résolution des systèmes linéaires par l'algorithme de Gauss</h1>
          <?php if ($step == 3) { ?>
             <div id="step4">
                <form name='FORM_STEP3' method="POST" action="<?=$_SERVER['REQUEST_URI'];?>" style="width:100%">
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 4 : Resultat de l'operation demandé &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 4 : Resultat de l'operation demandé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
+
+                        <span class="error"><?= $error; ?></span>
                         <table width="100%">
                            <tr>
                         <?php
                                  
-                                 $_SESSION["matrixIntG"] = $G;
-                                 $_SESSION["matrixIntA"] = $A;
-                                 $_SESSION["matrixIntY"] = $Y;
+                                 $_SESSION["resultGauss"] = $resultGauss;
                                  $_SESSION["matrixA"] = $matrixA;
                                  $_SESSION["matrixY"] = $matrixY;
-                                 $_SESSION["result"] = $result;
-                                 
                         ?>
                         <!-- The result for the gauss operation -->
                            <td>
@@ -106,7 +109,7 @@
                <form name='FORM_STEP2' method="POST" action="<?=$_SERVER['REQUEST_URI'];?>" style="width:100%">
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 3 : Saisi des parametres &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 3 : Saisi des parametres &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
                      <br />
                      <table width="100%">
                         <col width="45%"></col>
@@ -124,7 +127,13 @@
                                     <?php for ($i=0; $i < $_POST["tailleN"]; $i++) { ?>
                                     <mtr>
                                        <?php for ($j=0; $j < $_POST["tailleN"]; $j++) { ?>
-                                             <mtd><mi><input type="text" name="matrixA_<?=$i?>_<?=$j?>" size="3" class="matrixA" onChange="checkValue.call(this);" /></mi></mtd>
+                                          <mtd>
+                                                   <semantics>
+                                                      <annotation-xml encoding="application/xhtml+xml">
+                                                        <input  xmlns="http://www.w3.org/1999/xhtml" type="text" name="matrixA_<?=$i?>_<?=$j?>" size="3" class="matrixA" onChange="checkValue.call(this);" />
+                                                      </annotation-xml>
+                                                    </semantics>
+                                             </mtd>      
                                        <?php } ?>
                                     </mtr>
                                     <?php } ?>
@@ -146,7 +155,13 @@
                                     <?php for ($i=0; $i < $_POST["tailleN"]; $i++) { ?>
                                     <mtr>
                                        <?php for ($j=0; $j < 1; $j++) { ?>
-                                             <mtd><mi><input type="text" name="matrixY_<?=$i?>_<?=$j?>" size="3" class="matrixA" onChange="checkValue.call(this);" /></mi></mtd>
+                                             <mtd>
+                                                <semantics>
+                                                   <annotation-xml encoding="application/xhtml+xml">
+                                                      <input  xmlns="http://www.w3.org/1999/xhtml" type="text" name="matrixY_<?=$i?>_<?=$j?>" size="3" class="matrixA" onChange="checkValue.call(this);" />
+                                                   </annotation-xml>
+                                                 </semantics>
+                                             </mtd>
                                        <?php } ?>
                                     </mtr>
                                     <?php } ?>
@@ -174,7 +189,7 @@
                <form name='FORM_STEP1' method="POST" action="<?=$_SERVER['REQUEST_URI'];?>" style="width:100%">
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 2 : Définir la taille de la matrice &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 2 : Définir la taille de la matrice &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
                      <br />
                      <table width="100%">
                         <col width="10%"></col>
@@ -195,6 +210,7 @@
          <?php } ?>
       </div>
       <script src="./js/checks.js"></script>
+      <script type="text/javascript" src="./js/MathJax/MathJax.js?config=MML_HTMLorMML-full"></script>
       <script src="./js/jquery_1.6.3.js"></script>
    </body>
 </html>

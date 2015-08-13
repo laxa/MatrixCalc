@@ -61,7 +61,6 @@ function check_step1(myform) {
       alert("Seulement une seul operation est possible. Recommencer s'il vous plais");
    }
    else {
-      alert("Le choix de votre operation a ete sauvegarder avec succes");
       myform.operation.value = op;
       myform.action.value = "save_step1";
       $("#step1").hide();

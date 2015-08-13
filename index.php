@@ -1,4 +1,4 @@
-<?php
+﻿<?php
    session_start();
 ?>
 <!doctype html>
@@ -6,9 +6,11 @@
 
    <head>
       <meta charset="UTF-8">
-      <title>Math Project</title>
+      <title>Math Project (Calcul Matriciels)</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <link rel="stylesheet" type="text/css" href="css/default.css">
-   </head>
+  </head>
 <?php
    $error = "";
    ## By default Step 1 is on to enable use choose the operation to apply
@@ -82,7 +84,7 @@
          } catch (Exception $e) {
             ## An error occured. The user is redirected to step 2.
             $step = 2;
-            $error = $e;
+            $error = $e->getMessage();
          }
 
       }
@@ -92,18 +94,19 @@
    <body>
 
       <div id="bg_div">
+         <h1>Calcul Matriciels</h1>
          <?php if ($step == 4) { ?>
             <div id="step4">
                <form name='FORM_STEP4' method="POST" action="<?=$_SERVER['REQUEST_URI'];?>" style="width:100%">
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 4 : Resultat de l'operation demandé &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 4 : Resultat de l'operation demandé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
                         <table width="100%">
                            <tr>
-                        <?php if ($operator == "trace") { 
+                        <?php if ($operator == "trace") {
                                  $_SESSION["matrixA"] = $matrixA;
                                  $_SESSION["result"] = $result;
-                                 
+
                         ?>
                         <!-- The result for the trace operation -->
                            <td>
@@ -156,7 +159,7 @@
                   <input type="hidden" name="operation" value="<?=$operator;?>" />
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 3 : Saisi des parametres &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 3 : Saisi des parametres &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
                      <br />
                      <table width="100%">
                         <col width="30%"></col>
@@ -164,50 +167,69 @@
                         <tr>
                      <?php if ($operator == "trace") { ?>
                         <td>
-                        <math xmlns="http://www.w3.org/1998/Math/MathML">
-                           <mrow>
-                              <mi>A</mi>
-                              <mo>=</mo>
-                           
-                              <mfenced open="(" close=")">
-                           
-                                 <mtable>
-                                    <?php for ($i=0; $i < $_POST["tailleA"]; $i++) { ?>
-                                    <mtr>
-                                       <?php for ($j=0; $j < $_POST["tailleA"]; $j++) { ?>
-                                             <mtd><mi><input type="text" name="matrixA_<?=$i?>_<?=$j?>" size="3" class="matrixA" onChange="checkValue.call(this);" /></mi></mtd>
-                                       <?php } ?>
-                                    </mtr>
-                                    <?php } ?>
-                                 </mtable>
-                                 
-                              </mfenced>
-                           </mrow>
-                        </math>
+                           <math>
+                              <mstyle displaystyle="true">
+                                 <mrow>
+                                    <mi>A</mi>
+                                    <mo>=</mo>
+
+                                   <mfenced open="(" close=")">
+
+                                       <mtable>
+                                          <?php for ($i=0; $i < $_POST["tailleA"]; $i++) { ?>
+                                          <mtr>
+                                             <?php for ($j=0; $j < $_POST["tailleA"]; $j++) { ?>
+
+                                                   <mtd>
+                                                   <semantics>
+                                                      <annotation-xml encoding="application/xhtml+xml">
+                                                        <input  xmlns="http://www.w3.org/1999/xhtml" type="text" name="matrixA_<?=$i?>_<?=$j?>" size="3" class="matrixA" onChange="checkValue.call(this);" />
+                                                      </annotation-xml>
+                                                    </semantics>
+                                                   </mtd>
+
+                                             <?php } ?>
+                                          </mtr>
+                                          <?php } ?>
+                                       </mtable>
+
+                                    </mfenced>
+                                 </mrow>
+                              </mstyle>
+                           </math>
                         </td>
                         <td></td>
                      <?php } else { ?>
                            <td>
-                           <math xmlns="http://www.w3.org/1998/Math/MathML">
-                              <mrow>
-                                 <mi>A</mi>
-                                 <mo>=</mo>
-                              
-                                 <mfenced open="(" close=")">
-                              
-                                    <mtable>
-                                       <?php for ($i=0; $i < $_POST["lineA"]; $i++) { ?>
-                                       <mtr>
-                                          <?php for ($j=0; $j < $_POST["colA"]; $j++) { ?>
-                                                <mtd><mi><input type="text" name="matrixA_<?=$i?>_<?=$j?>" class="matrixA" size="3" onChange="checkValue.call(this);" /></mi></mtd>
-                                          <?php } ?>
-                                       </mtr>
-                                       <?php } ?>
-                                    </mtable>
-                                    
-                                 </mfenced>
-                              </mrow>
-                           </math>
+                              <math>
+                                 <mstyle displaystyle="true">
+                                    <mrow>
+                                       <mi>A</mi>
+                                       <mo>=</mo>
+
+                                       <mfenced open="(" close=")">
+
+                                          <mtable>
+                                             <?php for ($i=0; $i < $_POST["lineA"]; $i++) { ?>
+                                             <mtr>
+                                                <?php for ($j=0; $j < $_POST["colA"]; $j++) { ?>
+                                                      <mtd>
+                                                         <semantics>
+                                                            <annotation-xml encoding="application/xhtml+xml">
+                                                               <input type="text" xmlns="http://www.w3.org/1999/xhtml" name="matrixA_<?=$i?>_<?=$j?>" class="matrixA" size="3" onChange="checkValue.call(this);" />
+                                                            </annotation-xml>
+                                                       </semantics>
+                                                      </mtd>
+
+                                                <?php } ?>
+                                             </mtr>
+                                             <?php } ?>
+                                          </mtable>
+
+                                       </mfenced>
+                                    </mrow>
+                                 </mstyle>
+                              </math>
                         </td>
                         <td>
                         <?php
@@ -215,33 +237,40 @@
                               case 'somme':
                               case 'produit':
                         ?>
-                        <!--<br/><br/> -->
-                                 <math xmlns="http://www.w3.org/1998/Math/MathML">
+                                 <math>
+                                   <mstyle displaystyle="true">
                                     <mrow>
                                        <mi>B</mi>
                                        <mo>=</mo>
-                                    
+
                                        <mfenced open="(" close=")">
-                                    
+
                                           <mtable>
                                              <?php for ($i=0; $i < $_POST["lineB"]; $i++) { ?>
                                              <mtr>
                                                 <?php for ($j=0; $j < $_POST["colB"]; $j++) { ?>
-                                                      <mtd><mi><input type="text" name="matrixB_<?=$i?>_<?=$j?>" size="3" class="matrixB" onChange="checkValue.call(this);"/></mi></mtd>
+                                                      <mtd>
+                                                         <semantics>
+                                                            <annotation-xml encoding="application/xhtml+xml">
+                                                               <input xmlns="http://www.w3.org/1999/xhtml" type="text" name="matrixB_<?=$i?>_<?=$j?>" size="3" class="matrixB" onChange="checkValue.call(this);"/>
+                                                            </annotation-xml>
+                                                         </semantics>
+                                                      </mtd>
                                                 <?php } ?>
                                              </mtr>
                                              <?php } ?>
                                           </mtable>
-                                          
+
                                        </mfenced>
                                     </mrow>
+                                 </mstyle>
                                  </math>
                         <?php
                                  break;
                               default:
                                  # code...
                                  break;
-                           } 
+                           }
                         ?>
                      </td>
                      <?php } ?>
@@ -265,7 +294,9 @@
                   <input type="hidden" name="operation" value="<?=$operator;?>" />
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 2 : Définir la taille de la matrice &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 2 : Définir la taille de la matrice &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
+                     <br />
+                     <span class="error"><?= $error; ?></span>
                      <br />
                      <table width="100%">
                      <?php
@@ -306,13 +337,13 @@
                                  <tr>
                                     <td>Nombre de colonne</td>
                                     <td><input type="number" min="1" name="colB" max="99" maxlength="3" size="3" /></td>
-                                 </tr> 
+                                 </tr>
                         <?php
                                  break;
                               default:
                                  # code...
                                  break;
-                           } 
+                           }
                         }
                      ?>
                      </table>
@@ -333,7 +364,7 @@
                   <input type="hidden" name="action" value="" />
                   <input type="hidden" name="operation" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;--&nbsp;Etape 1 : Choisir l'op&eacute;ration &agrave; &eacute;ffectuer &nbsp;--&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 1 : Choisir l'op&eacute;ration &agrave; &eacute;ffectuer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
                      <table width="100%">
                         <col width="15%"></col>
                         <col></col>
@@ -365,6 +396,7 @@
          <?php } ?>
       </div>
       <script src="./js/checks.js"></script>
+      <script type="text/javascript" src="./js/MathJax/MathJax.js?config=MML_HTMLorMML-full"></script>
       <script src="./js/jquery_1.6.3.js"></script>
    </body>
 </html>

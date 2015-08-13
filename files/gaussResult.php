@@ -4,13 +4,10 @@ if (!isset($_COOKIE['PHPSESSID'])) {
 }
 $matrixA = $_SESSION["matrixA"];
 $matrixY = $_SESSION["matrixY"];
-$G = $_SESSION["matrixIntG"];
-$A = $_SESSION["matrixIntA"];
-$Y = $_SESSION["matrixIntY"];
-$result = $_SESSION["result"];
+$result = $_SESSION["resultGauss"];
 ?>
 
-<h2>Operation in Progress</h2>
+<h2>Matrices saisi en cours</h2>
 
 <math xmlns="http://www.w3.org/1998/Math/MathML">
       <mrow>
@@ -32,9 +29,9 @@ $result = $_SESSION["result"];
          </mfenced>
       </mrow>
    </math>
-
-and 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+et 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <math xmlns="http://www.w3.org/1998/Math/MathML">
       <mrow>
          <mi>Y</mi>
@@ -56,16 +53,26 @@ and
       </mrow>
    </math>
 
-
-   <h2> Resultat intermediaire </h2>
+<br/><br/><br/><hr/><br/>
+   <h2> Résultat intermediaire </h2>
    <table width="100%">
-      <col width="30%"></col>
-      <col width="30%"></col>
+      <col width="40%"></col>
+      <col width="40%"></col>
       <col></col>
 <?php
 for ($k=1; $k < count($matrixA); $k++) {
+   $G = "";
+   $A = "";
+   $Y = "";
+   if (isset($result["G".$k])) {
+      $G = $result["G".$k]->GetMatrix();
+   }
+   if (isset($result["A".($k + 1)]) && isset($result["Y".($k + 1)])) {
+      $A = $result["A".($k + 1)]->GetMatrix();
+      $Y = $result["Y".($k + 1)]->GetMatrix();
+   }
 ?>
-   <tr>
+   <tr style="height:25px">
       <td>
          G<sub>(<?=$k;?>)</sub>
          <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -88,6 +95,7 @@ for ($k=1; $k < count($matrixA); $k++) {
                </mfenced>
             </mrow>
          </math>
+         <br/><br/>
       </td>
       <td>
          A<sub>(<?=($k + 1);?>)</sub>
@@ -111,6 +119,7 @@ for ($k=1; $k < count($matrixA); $k++) {
                </mfenced>
             </mrow>
          </math>
+         <br/><br/>
       </td> 
       <td>
          Y<sub>(<?=($k + 1);?>)</sub>
@@ -134,15 +143,25 @@ for ($k=1; $k < count($matrixA); $k++) {
                </mfenced>
             </mrow>
          </math>
+         <br/><br/>
       </td> 
    </tr>
 <?php
 }
 ?>
 </table>
-<br/>
-<h2>Final Result</h2>
-
+<br/><hr/><br/>
+<h2>Résultat final</h2>
+L'ensemble des solutions est = 
+<?php
+   $val = "";
+   for ($i=0; $i < count($result["solutions"]); $i++) {
+      $val .= $result["solutions"][$i].", ";
+   }
+   $val = preg_replace("/, $/", "", $val);
+   echo "{(".$val.")}";
+?>
+<!--
 <math xmlns="http://www.w3.org/1998/Math/MathML">
    <mrow>
       <mi>Result</mi>
@@ -151,15 +170,16 @@ for ($k=1; $k < count($matrixA); $k++) {
       <mfenced open="(" close=")">
 
          <mtable>
-            <?php for ($i=0; $i < count($result); $i++) { ?>
+            <?php// for ($i=0; $i < count($result); $i++) { ?>
             <mtr>
-               <?php for ($j=0; $j < count($result[$i]); $j++) { ?>
-                     <mtd><mi><?= $result[$i][$j]; ?></mi></mtd>
-               <?php } ?>
+               <?php //for ($j=0; $j < count($result[$i]); $j++) { ?>
+                     <mtd><mi><?//= $result[$i][$j]; ?></mi></mtd>
+               <?php //} ?>
             </mtr>
-            <?php } ?>
+            <?php //} ?>
          </mtable>
          
       </mfenced>
    </mrow>
 </math>
+-->
