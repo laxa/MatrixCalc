@@ -92,6 +92,10 @@
 
 ?>
    <body>
+      <div id="navigation">
+         <a href="#" class="active">Calcul Matriciels</a>
+         <a href="./gauss.php">Algorithme de Gauss</a>
+      </div>
 
       <div id="bg_div">
          <h1>Calcul Matriciels</h1>
@@ -106,7 +110,6 @@
                         <?php if ($operator == "trace") {
                                  $_SESSION["matrixA"] = $matrixA;
                                  $_SESSION["result"] = $result;
-
                         ?>
                         <!-- The result for the trace operation -->
                            <td>
@@ -172,9 +175,7 @@
                                  <mrow>
                                     <mi>A</mi>
                                     <mo>=</mo>
-
-                                   <mfenced open="(" close=")">
-
+                                    <mfenced open="(" close=")">
                                        <mtable>
                                           <?php for ($i=0; $i < $_POST["tailleA"]; $i++) { ?>
                                           <mtr>
@@ -187,12 +188,10 @@
                                                       </annotation-xml>
                                                     </semantics>
                                                    </mtd>
-
                                              <?php } ?>
                                           </mtr>
                                           <?php } ?>
                                        </mtable>
-
                                     </mfenced>
                                  </mrow>
                               </mstyle>
@@ -206,9 +205,7 @@
                                     <mrow>
                                        <mi>A</mi>
                                        <mo>=</mo>
-
                                        <mfenced open="(" close=")">
-
                                           <mtable>
                                              <?php for ($i=0; $i < $_POST["lineA"]; $i++) { ?>
                                              <mtr>
@@ -220,12 +217,10 @@
                                                             </annotation-xml>
                                                        </semantics>
                                                       </mtd>
-
                                                 <?php } ?>
                                              </mtr>
                                              <?php } ?>
                                           </mtable>
-
                                        </mfenced>
                                     </mrow>
                                  </mstyle>
@@ -242,9 +237,7 @@
                                     <mrow>
                                        <mi>B</mi>
                                        <mo>=</mo>
-
                                        <mfenced open="(" close=")">
-
                                           <mtable>
                                              <?php for ($i=0; $i < $_POST["lineB"]; $i++) { ?>
                                              <mtr>
@@ -260,7 +253,6 @@
                                              </mtr>
                                              <?php } ?>
                                           </mtable>
-
                                        </mfenced>
                                     </mrow>
                                  </mstyle>
@@ -394,6 +386,10 @@
                </form>
             </div>
          <?php } ?>
+      </div>
+      <div id="footer">
+         Realised By <b>egloff_j & mouafo_a</b> <br/>
+         Project given By <b>ETNA</b>
       </div>
       <script src="./js/checks.js"></script>
       <script type="text/javascript" src="./js/MathJax/MathJax.js?config=MML_HTMLorMML-full"></script>

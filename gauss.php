@@ -68,6 +68,10 @@
 
 ?>
    <body>
+      <div id="navigation">
+         <a href="./index.php">Calcul Matriciels</a>
+         <a href="#" class="active">Algorithme de Gauss</a>
+      </div>
 
       <div id="bg_div">
          <h1>Résolution des systèmes linéaires par l'algorithme de Gauss</h1>
@@ -76,7 +80,7 @@
                <form name='FORM_STEP3' method="POST" action="<?=$_SERVER['REQUEST_URI'];?>" style="width:100%">
                   <input type="hidden" name="action" value="" />
                   <fieldset style="margin-left:30px;margin-right:30px;">
-                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 4 : Resultat de l'operation demandé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
+                     <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 4 : Résultat de l'opération demandé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
 
                         <span class="error"><?= $error; ?></span>
                         <table width="100%">
