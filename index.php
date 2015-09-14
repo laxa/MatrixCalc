@@ -107,9 +107,10 @@
                      <legend> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Etape 4 : Resultat de l'operation demandé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</legend>
                         <table width="100%">
                            <tr>
-                        <?php if ($operator == "trace") {
+                        <?php if ($operator == "trace") { 
                                  $_SESSION["matrixA"] = $matrixA;
                                  $_SESSION["result"] = $result;
+                                 
                         ?>
                         <!-- The result for the trace operation -->
                            <td>
@@ -170,12 +171,15 @@
                         <tr>
                      <?php if ($operator == "trace") { ?>
                         <td>
+                           <script type="math/mml">
                            <math>
                               <mstyle displaystyle="true">
                                  <mrow>
                                     <mi>A</mi>
                                     <mo>=</mo>
+                                 
                                     <mfenced open="(" close=")">
+                                 
                                        <mtable>
                                           <?php for ($i=0; $i < $_POST["tailleA"]; $i++) { ?>
                                           <mtr>
@@ -188,24 +192,30 @@
                                                       </annotation-xml>
                                                     </semantics>
                                                    </mtd>
+                                              
                                              <?php } ?>
                                           </mtr>
                                           <?php } ?>
                                        </mtable>
+                                       
                                     </mfenced>
                                  </mrow>
                               </mstyle>
                            </math>
+                           </script>
                         </td>
                         <td></td>
                      <?php } else { ?>
                            <td>
+                              <script type="math/mml">
                               <math>
                                  <mstyle displaystyle="true">
                                     <mrow>
                                        <mi>A</mi>
                                        <mo>=</mo>
+                                    
                                        <mfenced open="(" close=")">
+                                    
                                           <mtable>
                                              <?php for ($i=0; $i < $_POST["lineA"]; $i++) { ?>
                                              <mtr>
@@ -217,27 +227,33 @@
                                                             </annotation-xml>
                                                        </semantics>
                                                       </mtd>
+                                                       
                                                 <?php } ?>
                                              </mtr>
                                              <?php } ?>
                                           </mtable>
+                                          
                                        </mfenced>
                                     </mrow>
                                  </mstyle>
                               </math>
+                              </script>
                         </td>
                         <td>
                         <?php
                            switch ($operator) {
-                              case 'somme':
-                              case 'produit':
+                              case 'somme'   :
+                              case 'produit' :
                         ?>
+                              <script type="math/mml">
                                  <math>
                                    <mstyle displaystyle="true">
                                     <mrow>
                                        <mi>B</mi>
                                        <mo>=</mo>
+                                    
                                        <mfenced open="(" close=")">
+                                    
                                           <mtable>
                                              <?php for ($i=0; $i < $_POST["lineB"]; $i++) { ?>
                                              <mtr>
@@ -245,7 +261,7 @@
                                                       <mtd>
                                                          <semantics>
                                                             <annotation-xml encoding="application/xhtml+xml">
-                                                               <input xmlns="http://www.w3.org/1999/xhtml" type="text" name="matrixB_<?=$i?>_<?=$j?>" size="3" class="matrixB" onChange="checkValue.call(this);"/>
+                                                                  <input type="text" xmlns="http://www.w3.org/1999/xhtml" name="matrixB_<?=$i?>_<?=$j?>" class="matrixB" size="3" onChange="checkValue.call(this);"/>
                                                             </annotation-xml>
                                                          </semantics>
                                                       </mtd>
@@ -253,16 +269,18 @@
                                              </mtr>
                                              <?php } ?>
                                           </mtable>
+                                          
                                        </mfenced>
                                     </mrow>
                                  </mstyle>
                                  </math>
+                              </script>
                         <?php
                                  break;
                               default:
                                  # code...
                                  break;
-                           }
+                           } 
                         ?>
                      </td>
                      <?php } ?>
@@ -298,7 +316,7 @@
                         <col></col>
                         <tr>
                            <td>L'ordre de la Matrice A</td>
-                           <td><input type="number" min="1" name="tailleA" max="99" maxlength="3" size="3" /></td>
+                           <td><input type="number" min="2" name="tailleA" max="99" maxlength="3" size="3" /></td>
                         </tr>
                      <?php
                         }
@@ -329,13 +347,13 @@
                                  <tr>
                                     <td>Nombre de colonne</td>
                                     <td><input type="number" min="1" name="colB" max="99" maxlength="3" size="3" /></td>
-                                 </tr>
+                                 </tr> 
                         <?php
                                  break;
                               default:
                                  # code...
                                  break;
-                           }
+                           } 
                         }
                      ?>
                      </table>

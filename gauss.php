@@ -120,6 +120,7 @@
                         <col></col>
                         <tr>
                         <td>
+                           <script type="math/mml">
                         <math xmlns="http://www.w3.org/1998/Math/MathML">
                            <mrow>
                               <mi>A</mi>
@@ -146,8 +147,10 @@
                               </mfenced>
                            </mrow>
                         </math>
+                        </script>
                         </td>
                         <td>
+                        <script type="math/mml">
                         <math xmlns="http://www.w3.org/1998/Math/MathML">
                            <mrow>
                               <mi>Y</mi>
@@ -174,6 +177,7 @@
                               </mfenced>
                            </mrow>
                         </math>
+                        </script>
                         </td>
                   </tr>
                      </table>
