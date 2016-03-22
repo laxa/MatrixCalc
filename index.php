@@ -407,7 +407,7 @@
       </div>
       <div id="footer">
          Realised By <b>egloff_j & mouafo_a</b> <br/>
-         Project given By <b>ETNA</b>
+         Project given By <b>ABCD</b>
       </div>
       <script src="./js/checks.js"></script>
       <script type="text/javascript" src="./js/MathJax/MathJax.js?config=MML_HTMLorMML-full"></script>
